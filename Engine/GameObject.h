@@ -1,17 +1,17 @@
 #pragma once
-#include "Transform.h"
 #include "MeshRenderer.h"
-#include "Component.h"
 #include <type_traits>
-#include <unordered_set>
+
+// Forward declare includes to avoid circular dependencies
+class Component;
+class Transform;
 
 class GameObject
 {
 public:
 	static std::vector<GameObject*> GameObjects;
 
-	std::unordered_set<Component> components;
-	Transform transform;
+	Transform* transform;
 
 	GameObject();
 	template <typename... Components>
@@ -22,21 +22,13 @@ public:
 	~GameObject();
 
 	void update();
-	void addComponent(Component comp);
-	template<typename Comp>
-	Component* addComponent();
-
-	template<typename Comp>
-	Component getComponent();
-
-	void removeComponent(Component comp);
 private:
 	// Constructor helper
 	template <typename Comp, typename... Components>
 	void initializeComponents(Comp comp, Components... comps)
 	{
 		static_assert(std::is_base_of<Component, Comp>::value, "component must inherit from Component");
-		components.insert(comp);
+		comp.linkObject(this);
 		initializeComponents(comps...);
 	}
 	void initializeComponents() {}

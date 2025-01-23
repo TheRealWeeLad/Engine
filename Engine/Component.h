@@ -1,13 +1,12 @@
 #pragma once
-#include <iostream>
+
+class GameObject;
+
 class Component
 {
 public:
-	virtual void update() {};
-};
+	GameObject* gameObject;
 
-inline std::ostream& operator<<(std::ostream& stream, const Component& v)
-{
-	stream << 1;
-	return stream;
-}
+	virtual void update() {};
+	void linkObject(GameObject obj);
+};

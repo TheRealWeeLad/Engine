@@ -1,7 +1,8 @@
 #pragma once
 #include <glm/glm.hpp>
 #include <glm/gtc/quaternion.hpp>
-#include "Component.h"
+
+class Component;
 
 class Transform
 {
