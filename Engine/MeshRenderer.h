@@ -9,8 +9,8 @@
 
 struct Mesh
 {
-	// TODO: CHANGE TO STATIC MESH
-	const static std::vector<float> CUBE;
+	const static Mesh CUBE;
+	const static Mesh NULL_MESH;
 	std::vector<float> vertices;
 	std::vector<unsigned int> indices;
 	std::vector<std::vector<float>> attributes;
@@ -68,6 +68,7 @@ class MeshRenderer : public Component
 {
 public:
 	static std::vector<MeshRenderer*> Renderers;
+	const static unsigned short ID{ 1 };
 	Mesh mesh; // NEVER SET DIRECTLY
 	
 	MeshRenderer();
@@ -86,7 +87,6 @@ public:
 	unsigned int getEBO() const;
 private:
 	// For initialization purposes
-	const static Mesh NULL_MESH;
 	bool shaderTexturesAssigned{ false };
 
 	unsigned int VAO;

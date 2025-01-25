@@ -2,8 +2,8 @@
 
 /* STATIC */
 // Initialize Static Mesh Vertices
-const std::vector<float> Mesh::CUBE{
-	-0.5f, -0.5f, -0.5f,
+const Mesh Mesh::CUBE{
+	{-0.5f, -0.5f, -0.5f,
 	 0.5f, -0.5f, -0.5f,
 	 0.5f,  0.5f, -0.5f,
 	 0.5f,  0.5f, -0.5f,
@@ -43,9 +43,9 @@ const std::vector<float> Mesh::CUBE{
 	 0.5f,  0.5f,  0.5f,
 	 0.5f,  0.5f,  0.5f,
 	-0.5f,  0.5f,  0.5f,
-	-0.5f,  0.5f, -0.5f,
+	-0.5f,  0.5f, -0.5f}
 };
-const Mesh MeshRenderer::NULL_MESH{};
+const Mesh Mesh::NULL_MESH{};
 
 std::vector<MeshRenderer*> MeshRenderer::Renderers{};
 
@@ -55,7 +55,7 @@ MeshRenderer::MeshRenderer()
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
 	glGenBuffers(1, &EBO);
-	mesh = NULL_MESH;
+	mesh = Mesh::NULL_MESH;
 	shader = nullptr;
 	Renderers.push_back(this);
 }
@@ -100,7 +100,7 @@ void MeshRenderer::update()
 
 void MeshRenderer::render()
 {
-	if (mesh == NULL_MESH || shader == nullptr) return;
+	if (mesh == Mesh::NULL_MESH || shader == nullptr) return;
 
 	// Initialize shader tex values on first pass through
 	if (!shaderTexturesAssigned)

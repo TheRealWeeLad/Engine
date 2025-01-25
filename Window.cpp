@@ -116,6 +116,11 @@ int main()
 	// Set main camera
 	Camera::MainCamera = &cam;
 
+	// Create objects
+	MeshRenderer rend{ Mesh::CUBE };
+	GameObject x{ rend };
+	MeshRenderer* m{ x.getComponent<MeshRenderer>() };
+
 	// Render Loop
 	glEnable(GL_DEPTH_TEST);
 	while (!glfwWindowShouldClose(window))
@@ -128,7 +133,7 @@ int main()
 
 		// Rendering Commands
 		float time = glfwGetTime();
-		//MeshRenderer::RenderAll();
+		GameObject::UpdateAll();
 
 		// Check/Call Events and Swap Buffers
 		glfwSwapBuffers(window);
