@@ -73,8 +73,8 @@ public:
 	
 	MeshRenderer();
 	MeshRenderer(Mesh m);
-	MeshRenderer(Mesh m, std::vector<Texture> textures);
-	MeshRenderer(Mesh m, std::vector<Texture> textures, Shader s);
+	MeshRenderer(Mesh m, Shader s);
+	MeshRenderer(Mesh m, Shader s, std::vector<Texture> textures);
 
 	void update() override;
 	void render();

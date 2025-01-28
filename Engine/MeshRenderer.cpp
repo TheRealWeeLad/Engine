@@ -63,13 +63,13 @@ MeshRenderer::MeshRenderer(Mesh m) : MeshRenderer()
 {
 	setMesh(m);
 }
-MeshRenderer::MeshRenderer(Mesh m, std::vector<Texture> textures) : MeshRenderer(m)
-{
-	setTextures(textures);
-}
-MeshRenderer::MeshRenderer(Mesh m, std::vector<Texture> textures, Shader s) : MeshRenderer(m, textures)
+MeshRenderer::MeshRenderer(Mesh m, Shader s) : MeshRenderer(m)
 {
 	setShader(s);
+}
+MeshRenderer::MeshRenderer(Mesh m, Shader s, std::vector<Texture> textures) : MeshRenderer(m, s)
+{
+	setTextures(textures);
 }
 
 void MeshRenderer::setMesh(Mesh m)
@@ -95,7 +95,7 @@ void MeshRenderer::setMatrices(glm::mat4 model, glm::mat4 view, glm::mat4 projec
 
 void MeshRenderer::update()
 {
-	// TODO
+	render();
 }
 
 void MeshRenderer::render()
