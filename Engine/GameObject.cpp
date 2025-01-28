@@ -10,7 +10,7 @@ std::vector<GameObject*> GameObject::GameObjects{};
 GameObject::GameObject()
 {
 	transform = {};
-	renderer = {};
+	components = {};
 	GameObjects.push_back(this);
 }
 GameObject::~GameObject()
@@ -24,9 +24,8 @@ void GameObject::update()
 	transform->update();
 	for (int i = 0; i < components.size(); i++)
 	{
-		components[i]->update();
+		if (components[i]) components[i]->update();
 	}
-	renderer->update();
 }
 void GameObject::UpdateAll()
 {
@@ -34,11 +33,6 @@ void GameObject::UpdateAll()
 	{
 		GameObjects[i]->update();
 	}
-}
-void GameObject::addComponent(Component c)
-{
-	components.push_back(&c);
-	c.linkObject(this);
 }
 
 /* PRIVATE */

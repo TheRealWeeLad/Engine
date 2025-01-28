@@ -118,8 +118,8 @@ int main()
 
 	// Create objects
 	MeshRenderer rend{ Mesh::CUBE };
-	GameObject x{ rend };
-	MeshRenderer* m{ x.getComponent<MeshRenderer>() };
+	GameObject x{};
+	x.addComponent(&rend);
 
 	// Render Loop
 	glEnable(GL_DEPTH_TEST);

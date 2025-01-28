@@ -1,5 +1,6 @@
 #pragma once
 #include "MeshRenderer.h"
+#include <array>
 
 // Forward declare includes to avoid circular dependencies
 class Component;
@@ -7,51 +8,36 @@ class Transform;
 
 class GameObject
 {
+private:
+	static const int MAX_NUM_COMPONENTS = 100;
 public:
 	static std::vector<GameObject*> GameObjects;
-	std::vector<Component*> components;
+	// Array of components each located at index COMPONENT.ID
+	std::array<Component*, MAX_NUM_COMPONENTS> components;
 
 	Transform* transform;
-	MeshRenderer* renderer;
 
 	GameObject();
-	template <typename... Components>
-	GameObject(Components... components) : GameObject()
-	{
-		initializeComponents(components...);
-	}
 	~GameObject();
 
 	void update();
 	static void UpdateAll();
 
-	void addComponent(Component c);
+	template<typename SomeComponent>
+	void addComponent(SomeComponent* c)
+	{
+		components[c->ID] = c;
+	}
+
 	template<typename SomeComponent>
 	SomeComponent* getComponent()
 	{
-		for (int i = 0; i < components.size(); i++)
-		{
-			Component* c{ components[i] };
-			std::cout << c->ID << ' ' << SomeComponent::ID << std::endl;
-			if (c->ID == SomeComponent::ID) return (SomeComponent*) c;
-		}
-		return nullptr;
+		return (SomeComponent*) components[SomeComponent::ID];
 	}
-private:
-	// Constructor helper
-	template <typename Comp, typename... Components>
-	void initializeComponents(Comp comp, Components... comps)
+
+	template<typename SomeComponent>
+	void removeComponent()
 	{
-		Component* c{ (Component*)&comp };
-		c->linkObject(this);
-		components.push_back(c);
-		initializeComponents(comps...);
-	}
-	template <typename Comp>
-	void initializeComponents(Comp comp)
-	{
-		Component* c{ (Component*)&comp };
-		c->linkObject(this);
-		components.push_back(c);
+		components[SomeComponent::ID] = nullptr;
 	}
 };
