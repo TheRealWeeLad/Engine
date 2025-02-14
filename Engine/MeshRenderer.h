@@ -6,6 +6,7 @@
 #include "vector"
 #include "Shader.h"
 #include "Component.h"
+#include "Camera.h"
 
 struct Mesh
 {
@@ -99,5 +100,7 @@ private:
 	void setupMesh();
 	// Interleave vertex attributes to make vertex lookups more efficient
 	void interleave();
+	// Apply camera projection to shader
+	void transformShader();
 };
 

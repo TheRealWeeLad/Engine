@@ -21,12 +21,13 @@ public:
 	~GameObject();
 
 	void update();
-	static void UpdateAll();
+	static void UpdateAll(float time);
 
 	template<typename SomeComponent>
 	void addComponent(SomeComponent* c)
 	{
 		components[c->ID] = c;
+		c->linkObject(this);
 	}
 
 	template<typename SomeComponent>

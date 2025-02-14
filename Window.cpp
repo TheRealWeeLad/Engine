@@ -14,7 +14,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 // Default camera
-Camera cam{};
+Camera* cam{ Camera::MainCamera };
 
 // DELTA TIME
 float deltaTime = 0.0f;
@@ -39,13 +39,13 @@ void processInput(GLFWwindow* window)
 	// Camera Movement
 	const float camSpeed = 20 * deltaTime;
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		cam.translate(camSpeed * cam.forward);
+		cam->translate(camSpeed * cam->forward);
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		cam.translate(camSpeed * -cam.forward);
+		cam->translate(camSpeed * -cam->forward);
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		cam.translate(camSpeed * -cam.right);
+		cam->translate(camSpeed * -cam->right);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		cam.translate(camSpeed * cam.right);
+		cam->translate(camSpeed * cam->right);
 }
 float lastX = 400, lastY = 300;
 void mouseCallback(GLFWwindow* window, double xpos, double ypos)
@@ -68,14 +68,14 @@ void mouseCallback(GLFWwindow* window, double xpos, double ypos)
 	//if (cam.pitch < -89.9f) cam.pitch = -89.9f;
 
 	// Adjust camera rotation
-	cam.rotate(glm::vec3(pitch, yaw, 0));
+	cam->rotate(glm::vec3(pitch, yaw, 0));
 }
 void scrollCallback(GLFWwindow* window, double xOffset, double yOffset)
 {
 	const float sensitivity = 5;
-	cam.fov -= sensitivity * (float)yOffset;
-	if (cam.fov < 1.0f) cam.fov = 1.0f;
-	else if (cam.fov > 135.0f) cam.fov = 135.0f;
+	cam->fov -= sensitivity * (float)yOffset;
+	if (cam->fov < 1.0f) cam->fov = 1.0f;
+	else if (cam->fov > 135.0f) cam->fov = 135.0f;
 }
 #pragma endregion
 
@@ -113,9 +113,6 @@ int main()
 	glfwSetCursorPosCallback(window, mouseCallback);
 	glfwSetScrollCallback(window, scrollCallback);
 
-	// Set main camera
-	Camera::MainCamera = &cam;
-
 	// Create objects
 	MeshRenderer rend{ Mesh::CUBE };
 	GameObject x{};
@@ -133,7 +130,7 @@ int main()
 
 		// Rendering Commands
 		float time = glfwGetTime();
-		GameObject::UpdateAll();
+		GameObject::UpdateAll(time);
 
 		// Check/Call Events and Swap Buffers
 		glfwSwapBuffers(window);

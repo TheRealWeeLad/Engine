@@ -9,7 +9,8 @@ std::vector<GameObject*> GameObject::GameObjects{};
 /* CONSTRUCTOR */
 GameObject::GameObject()
 {
-	transform = {};
+	Transform t{};
+	transform = &t;
 	components = {};
 	GameObjects.push_back(this);
 }
@@ -27,7 +28,7 @@ void GameObject::update()
 		if (components[i]) components[i]->update();
 	}
 }
-void GameObject::UpdateAll()
+void GameObject::UpdateAll(float time)
 {
 	for (int i = 0; i < GameObjects.size(); i++)
 	{

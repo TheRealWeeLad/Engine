@@ -1,4 +1,6 @@
 #include "MeshRenderer.h"
+#include "GameObject.h"
+#include "Transform.h"
 
 /* STATIC */
 // Initialize Static Mesh Vertices
@@ -62,6 +64,9 @@ MeshRenderer::MeshRenderer()
 MeshRenderer::MeshRenderer(Mesh m) : MeshRenderer()
 {
 	setMesh(m);
+
+	// Use default shader
+	setShader({ "DefaultShader.v", "DefaultShader.f" });
 }
 MeshRenderer::MeshRenderer(Mesh m, Shader s) : MeshRenderer(m)
 {
@@ -95,6 +100,7 @@ void MeshRenderer::setMatrices(glm::mat4 model, glm::mat4 view, glm::mat4 projec
 
 void MeshRenderer::update()
 {
+	transformShader();
 	render();
 }
 
@@ -207,4 +213,18 @@ void MeshRenderer::interleave()
 				interleavedVertices.push_back(attrib[attribSize * i + k]);
 		}
 	}
+}
+
+void MeshRenderer::transformShader()
+{
+	glm::mat4 model{ glm::mat4(1.0f) };
+	model = glm::translate(model, gameObject->transform->position);
+	//model = glm::rotate(model, time, glm::vec3(1.0f, 1.0f, 0));
+
+	glm::mat4 projection{ glm::perspective(glm::radians(Camera::MainCamera->fov),
+						800.0f / 600.0f, 0.1f, 100.0f) };
+
+	shader->setMat4("model", model);
+	shader->setMat4("view", Camera::MainCamera->view);
+	shader->setMat4("project", projection);
 }

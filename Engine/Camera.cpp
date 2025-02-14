@@ -1,6 +1,7 @@
 #include "Camera.h"
 
-Camera* Camera::MainCamera{};
+Camera cam{};
+Camera* Camera::MainCamera{ &cam };
 
 /* CONSTRUCTORS */
 Camera::Camera(glm::vec3 position, glm::quat rotation, float fov, ViewMode mode, glm::vec3 target)
