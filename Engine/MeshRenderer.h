@@ -81,6 +81,7 @@ public:
 	void render();
 	void setMesh(Mesh m);
 	void setTextures(std::vector<Texture> textures);
+	void setShader();
 	void setShader(Shader s);
 	void setMatrices(glm::mat4 model, glm::mat4 view, glm::mat4 projection) const;
 	unsigned int getVAO() const;
@@ -95,7 +96,7 @@ private:
 	unsigned int EBO;
 	std::vector<float> interleavedVertices;
 	std::vector<Texture> textures;
-	Shader* shader;
+	Shader shader;
 
 	void setupMesh();
 	// Interleave vertex attributes to make vertex lookups more efficient

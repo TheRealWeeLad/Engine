@@ -1,6 +1,5 @@
 #include "GameObject.h"
 #include "Component.h"
-#include "Transform.h"
 #include <iostream>
 
 /* STATIC */
@@ -9,8 +8,7 @@ std::vector<GameObject*> GameObject::GameObjects{};
 /* CONSTRUCTOR */
 GameObject::GameObject()
 {
-	Transform t{};
-	transform = &t;
+	transform = {};
 	components = {};
 	GameObjects.push_back(this);
 }
@@ -22,7 +20,7 @@ GameObject::~GameObject()
 /* METHODS */
 void GameObject::update()
 {
-	transform->update();
+	transform.update();
 	for (int i = 0; i < components.size(); i++)
 	{
 		if (components[i]) components[i]->update();

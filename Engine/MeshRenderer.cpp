@@ -58,15 +58,14 @@ MeshRenderer::MeshRenderer()
 	glGenBuffers(1, &VBO);
 	glGenBuffers(1, &EBO);
 	mesh = Mesh::NULL_MESH;
-	shader = nullptr;
 	Renderers.push_back(this);
+
+	// Use default shader
+	setShader();
 }
 MeshRenderer::MeshRenderer(Mesh m) : MeshRenderer()
 {
 	setMesh(m);
-
-	// Use default shader
-	setShader({ "DefaultShader.v", "DefaultShader.f" });
 }
 MeshRenderer::MeshRenderer(Mesh m, Shader s) : MeshRenderer(m)
 {
@@ -86,16 +85,20 @@ void MeshRenderer::setTextures(std::vector<Texture> textures)
 {
 	this->textures = textures;
 }
+void MeshRenderer::setShader()
+{
+	shader = { "DefaultShader.v", "DefaultShader.f" };
+}
 void MeshRenderer::setShader(Shader s)
 {
-	shader = &s;
+	shader = s;
 }
 
 void MeshRenderer::setMatrices(glm::mat4 model, glm::mat4 view, glm::mat4 projection) const
 {
-	shader->setMat4("model", model);
-	shader->setMat4("view", view);
-	shader->setMat4("projection", projection);
+	shader.setMat4("model", model);
+	shader.setMat4("view", view);
+	shader.setMat4("projection", projection);
 }
 
 void MeshRenderer::update()
@@ -106,7 +109,7 @@ void MeshRenderer::update()
 
 void MeshRenderer::render()
 {
-	if (mesh == Mesh::NULL_MESH || shader == nullptr) return;
+	if (mesh == Mesh::NULL_MESH) return;
 
 	// Initialize shader tex values on first pass through
 	if (!shaderTexturesAssigned)
@@ -115,13 +118,13 @@ void MeshRenderer::render()
 		{
 			std::string texStr{ "Texture" };
 			texStr.append(std::to_string(i + 1));
-			shader->setInt(texStr, i);
+			shader.setInt(texStr, i);
 		}
 		shaderTexturesAssigned = true;
 	}
 
 	// Activate shader
-	shader->use();
+	shader.use();
 
 	// Activate textures
 	if (!textures.empty())
@@ -218,13 +221,13 @@ void MeshRenderer::interleave()
 void MeshRenderer::transformShader()
 {
 	glm::mat4 model{ glm::mat4(1.0f) };
-	model = glm::translate(model, gameObject->transform->position);
+	model = glm::translate(model, gameObject->transform.position);
 	//model = glm::rotate(model, time, glm::vec3(1.0f, 1.0f, 0));
 
 	glm::mat4 projection{ glm::perspective(glm::radians(Camera::MainCamera->fov),
 						800.0f / 600.0f, 0.1f, 100.0f) };
 
-	shader->setMat4("model", model);
-	shader->setMat4("view", Camera::MainCamera->view);
-	shader->setMat4("project", projection);
+	shader.setMat4("model", model);
+	shader.setMat4("view", Camera::MainCamera->view);
+	shader.setMat4("project", projection);
 }
