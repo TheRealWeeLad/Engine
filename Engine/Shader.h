@@ -9,6 +9,15 @@
 #include <sstream>
 #include <iostream>
 
+struct Material
+{
+	glm::vec3 color;
+	glm::vec3 ambient;
+	glm::vec3 diffuse;
+	glm::vec3 specular;
+	float shininess;
+};
+
 class Shader
 {
 public:
@@ -16,6 +25,7 @@ public:
 
 	Shader();
 	Shader(const char* vertexPath, const char* fragmentPath);
+	Shader(const char* vertexPath, const char* fragmentPath, Material m);
 
 	// Use/activate shader
 	void use() const;
@@ -27,6 +37,7 @@ public:
 	void setBool(const std::string &name, bool value) const;
 	void setInt(const std::string &name, int value) const;
 	void setFloat(const std::string &name, float value) const;
+	void setFloat3(const std::string& name, float a, float b, float c) const;
 	void setFloat4(const std::string& name, float a, float b, float c, float d) const;
 	void setFloat4(const std::string& name, glm::vec4 vec) const;
 	void setMat4(const std::string& name, glm::mat4 value) const;

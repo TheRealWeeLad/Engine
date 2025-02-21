@@ -1,9 +1,13 @@
 #include "Shader.h"
 
-Shader::Shader() {}
+Shader::Shader() { ID = -1; }
 Shader::Shader(const char* vertexPath, const char* fragmentPath) : Shader()
 {
 	setPaths(vertexPath, fragmentPath);
+}
+Shader::Shader(const char* vertexPath, const char* fragmentPath, Material m) : Shader(vertexPath, fragmentPath)
+{
+	// TODO: implement material stuff
 }
 
 void Shader::setPaths(const char* vertexPath, const char* fragmentPath)
@@ -104,6 +108,11 @@ void Shader::setFloat(const std::string& name, float value) const
 {
 	use();
 	glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
+}
+void Shader::setFloat3(const std::string& name, float a, float b, float c) const
+{
+	use();
+	glUniform3f(glGetUniformLocation(ID, name.c_str()), a, b, c);
 }
 void Shader::setFloat4(const std::string& name, float a, float b, float c, float d) const
 {
