@@ -1,6 +1,7 @@
 #pragma once
 #include "MeshRenderer.h"
 #include "Transform.h"
+#include <glm/glm.hpp>
 #include <array>
 
 // Forward declare includes to avoid circular dependencies
@@ -18,6 +19,7 @@ public:
 	Transform transform;
 
 	GameObject();
+	GameObject(glm::vec3 position);
 	~GameObject();
 
 	void update();

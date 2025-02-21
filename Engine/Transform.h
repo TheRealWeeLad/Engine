@@ -14,4 +14,5 @@ public:
 	Transform();
 
 	void update();
+	void translate(glm::vec3 translation);
 };

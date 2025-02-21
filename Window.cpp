@@ -86,7 +86,7 @@ int main()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	
+
 	// Create Window
 	GLFWwindow* window = glfwCreateWindow(800, 600, "GooGoo", NULL, NULL);
 	if (window == NULL)
@@ -113,8 +113,17 @@ int main()
 	glfwSetCursorPosCallback(window, mouseCallback);
 	glfwSetScrollCallback(window, scrollCallback);
 
+	// Light Source
+	MeshRenderer lightRend{ Mesh::CUBE, };
+	glm::vec4 lightColor{ 0.5, 0.5, 0, 1 };
+	GameObject lightSource{ glm::vec3{1, 1, 3} };
+	lightSource.addComponent(&lightRend);
+
 	// Create objects
-	MeshRenderer rend{ Mesh::CUBE };
+	Shader objectShader{ "DefaultShader.v", "SimpleLighting.f" };
+	objectShader.setFloat4("lightColor", lightColor);
+	objectShader.setFloat4("objectColor", 1, 0, 0, 1);
+	MeshRenderer rend{ Mesh::CUBE, objectShader };
 	GameObject x{};
 	x.addComponent(&rend);
 

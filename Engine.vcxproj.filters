@@ -85,5 +85,8 @@
     <None Include="DefaultShader.f">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="SimpleLighting.f">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

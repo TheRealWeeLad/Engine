@@ -12,3 +12,8 @@ void Transform::update()
 {
 	// TODO
 }
+
+void Transform::translate(glm::vec3 translation)
+{
+	position += translation;
+}

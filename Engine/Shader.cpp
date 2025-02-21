@@ -110,6 +110,11 @@ void Shader::setFloat4(const std::string& name, float a, float b, float c, float
 	use();
 	glUniform4f(glGetUniformLocation(ID, name.c_str()), a, b, c, d);
 }
+void Shader::setFloat4(const std::string& name, glm::vec4 vec) const
+{
+	use();
+	glUniform4f(glGetUniformLocation(ID, name.c_str()), vec.r, vec.g, vec.b, vec.a);
+}
 void Shader::setMat4(const std::string& name, glm::mat4 value) const
 {
 	use();
