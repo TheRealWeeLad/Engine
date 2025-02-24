@@ -75,7 +75,8 @@ public:
 	MeshRenderer();
 	MeshRenderer(Mesh m);
 	MeshRenderer(Mesh m, Shader s);
-	MeshRenderer(Mesh m, Shader s, std::vector<Texture> textures);
+	MeshRenderer(Mesh m, Shader s, Material mat);
+	MeshRenderer(Mesh m, Shader s, Material mat, std::vector<Texture> textures);
 
 	void update() override;
 	void render();
@@ -83,6 +84,7 @@ public:
 	void setTextures(std::vector<Texture> textures);
 	void setShader();
 	void setShader(Shader s);
+	void setMaterial(Material m);
 	void setMatrices(glm::mat4 model, glm::mat4 view, glm::mat4 projection) const;
 	unsigned int getVAO() const;
 	unsigned int getVBO() const;

@@ -7,7 +7,7 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath) : Shader()
 }
 Shader::Shader(const char* vertexPath, const char* fragmentPath, Material m) : Shader(vertexPath, fragmentPath)
 {
-	// TODO: implement material stuff
+	setMaterial(m);
 }
 
 void Shader::setPaths(const char* vertexPath, const char* fragmentPath)
@@ -114,6 +114,11 @@ void Shader::setFloat3(const std::string& name, float a, float b, float c) const
 	use();
 	glUniform3f(glGetUniformLocation(ID, name.c_str()), a, b, c);
 }
+void Shader::setFloat3(const std::string& name, glm::vec3 vec) const
+{
+	use();
+	glUniform3f(glGetUniformLocation(ID, name.c_str()), vec.r, vec.g, vec.b);
+}
 void Shader::setFloat4(const std::string& name, float a, float b, float c, float d) const
 {
 	use();
@@ -128,4 +133,13 @@ void Shader::setMat4(const std::string& name, glm::mat4 value) const
 {
 	use();
 	glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
+}
+void Shader::setMaterial(Material mat) const
+{
+	use();
+	setFloat3("mat.color", mat.color);
+	setFloat3("mat.ambient", mat.ambient);
+	setFloat3("mat.diffuse", mat.diffuse);
+	setFloat3("mat.specular", mat.specular);
+	setFloat("mat.shininess", mat.shininess);
 }

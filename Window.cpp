@@ -120,10 +120,9 @@ int main()
 	lightSource.addComponent(&lightRend);
 
 	// Create objects
-	Shader objectShader{ "DefaultShader.v", "SimpleLighting.f" };
-	objectShader.setFloat4("lightColor", lightColor);
-	objectShader.setFloat4("objectColor", 1, 0, 0, 1);
-	MeshRenderer rend{ Mesh::CUBE, objectShader };
+	MeshRenderer rend{ Mesh::CUBE };
+	Material objectMat{ {1, 0, 0}, {1, 0, 0}, 1.0F };
+	rend.setMaterial(objectMat);
 	GameObject x{};
 	x.addComponent(&rend);
 
