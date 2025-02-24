@@ -48,6 +48,9 @@
     <ClInclude Include="Engine\Transform.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="LightObject.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp">
@@ -77,12 +80,15 @@
     <ClCompile Include="..\GLFW include\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\LightObject.cpp">
+      <Filter>Source Files\Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="DefaultShader.v">
+    <None Include="DefaultShaderVert.glsl">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="DefaultShader.f">
+    <None Include="DefaultShaderFrag.glsl">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

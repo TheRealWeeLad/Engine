@@ -105,5 +105,6 @@ private:
 	void interleave();
 	// Apply camera projection to shader
 	void transformShader();
+	// Update shader lighting
+	void updateLighting();
 };
-

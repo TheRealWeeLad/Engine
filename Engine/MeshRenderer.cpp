@@ -1,5 +1,5 @@
 #include "MeshRenderer.h"
-#include "GameObject.h"
+#include "LightObject.h"
 #include "Transform.h"
 
 /* STATIC */
@@ -91,7 +91,7 @@ void MeshRenderer::setTextures(std::vector<Texture> textures)
 }
 void MeshRenderer::setShader()
 {
-	shader = { "DefaultShader.v", "DefaultShader.f" };
+	shader = { "DefaultShaderVert.glsl", "DefaultShaderFrag.glsl" };
 }
 void MeshRenderer::setShader(Shader s)
 {
@@ -111,6 +111,7 @@ void MeshRenderer::setMatrices(glm::mat4 model, glm::mat4 view, glm::mat4 projec
 
 void MeshRenderer::update()
 {
+	updateLighting();
 	transformShader();
 	render();
 }
@@ -238,4 +239,9 @@ void MeshRenderer::transformShader()
 	shader.setMat4("model", model);
 	shader.setMat4("view", Camera::MainCamera->view);
 	shader.setMat4("project", projection);
+}
+
+void MeshRenderer::updateLighting()
+{
+	shader.setFloat3("lightColor", LightObject::LightColor);
 }

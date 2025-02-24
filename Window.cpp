@@ -7,6 +7,7 @@
 #include "Engine/MeshRenderer.h"
 #include "Engine/Component.h"
 #include "Engine/GameObject.h"
+#include "Engine/LightObject.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
@@ -115,13 +116,15 @@ int main()
 
 	// Light Source
 	MeshRenderer lightRend{ Mesh::CUBE, };
-	glm::vec4 lightColor{ 0.5, 0.5, 0, 1 };
-	GameObject lightSource{ glm::vec3{1, 1, 3} };
+	glm::vec3 lightColor{ 1, 1, 1 };
+	Material lightMat{ lightColor, lightColor, 1.0F };
+	lightRend.setMaterial(lightMat);
+	LightObject lightSource{ lightColor, {1, 1, 3} };
 	lightSource.addComponent(&lightRend);
 
 	// Create objects
 	MeshRenderer rend{ Mesh::CUBE };
-	Material objectMat{ {1, 0, 0}, {1, 0, 0}, 1.0F };
+	Material objectMat{ {0.8, 0.3, 0.2}, {1, 0, 0}, 1.0F };
 	rend.setMaterial(objectMat);
 	GameObject x{};
 	x.addComponent(&rend);
@@ -138,6 +141,7 @@ int main()
 
 		// Rendering Commands
 		float time = glfwGetTime();
+		LightObject::CalculateLighting();
 		GameObject::UpdateAll(time);
 
 		// Check/Call Events and Swap Buffers

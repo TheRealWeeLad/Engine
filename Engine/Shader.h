@@ -11,6 +11,8 @@
 
 struct Material
 {
+	const static Material Default;
+
 	glm::vec3 color;
 	glm::vec3 ambient;
 	glm::vec3 diffuse;
@@ -28,6 +30,8 @@ struct Material
 	}
 	// Sets ambient and diffuse color to the object's color
 	Material(glm::vec3 color, glm::vec3 specular, float shininess) : Material(color, color, color, specular, shininess)
+	{ }
+	Material() : Material(Default.color, Default.specular, Default.shininess)
 	{ }
 };
 

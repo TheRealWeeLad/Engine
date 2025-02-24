@@ -1,5 +1,7 @@
 #include "Shader.h"
 
+const Material Material::Default{ {1, 1, 1}, {1, 1, 1}, 1.0F };
+
 Shader::Shader() { ID = -1; }
 Shader::Shader(const char* vertexPath, const char* fragmentPath) : Shader()
 {
@@ -136,7 +138,6 @@ void Shader::setMat4(const std::string& name, glm::mat4 value) const
 }
 void Shader::setMaterial(Material mat) const
 {
-	use();
 	setFloat3("mat.color", mat.color);
 	setFloat3("mat.ambient", mat.ambient);
 	setFloat3("mat.diffuse", mat.diffuse);

@@ -141,12 +141,14 @@
     <ClInclude Include="Engine\Shader.h" />
     <ClInclude Include="Engine\stb_image.h" />
     <ClInclude Include="Engine\Transform.h" />
+    <ClInclude Include="LightObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\GLFW include\glad.c" />
     <ClCompile Include="Engine\Camera.cpp" />
     <ClCompile Include="Engine\Debug.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
+    <ClCompile Include="Engine\LightObject.cpp" />
     <ClCompile Include="Engine\MeshRenderer.cpp" />
     <ClCompile Include="Engine\Shader.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
@@ -154,8 +156,8 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DefaultShader.f" />
-    <None Include="DefaultShader.v" />
+    <None Include="DefaultShaderFrag.glsl" />
+    <None Include="DefaultShaderVert.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
