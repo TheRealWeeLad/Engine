@@ -6,11 +6,12 @@ class LightObject :
 {
 public:
     static std::vector<LightObject*> LightObjects;
-    static glm::vec3 LightColor;
-    glm::vec3 lightColor;
+    static LightMaterial LightMat;
+    static glm::vec3 LightPos;
+    LightMaterial mat;
 
-    LightObject(glm::vec3 color);
-    LightObject(glm::vec3 color, glm::vec3 position);
+    LightObject(LightMaterial lightMat);
+    LightObject(LightMaterial lightMat, glm::vec3 position);
     ~LightObject();
 
     static void CalculateLighting();

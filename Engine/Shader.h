@@ -35,6 +35,33 @@ struct Material
 	{ }
 };
 
+struct LightMaterial
+{
+	glm::vec3 ambient;
+	glm::vec3 diffuse;
+	glm::vec3 specular;
+
+	LightMaterial(glm::vec3 ambient, glm::vec3 diffuse, glm::vec3 specular)
+	{
+		this->ambient = ambient;
+		this->diffuse = diffuse;
+		this->specular = specular;
+	}
+	// Sets ambient, diffuse, and specular values based on color
+	LightMaterial(glm::vec3 color) : LightMaterial(color, color, color)
+	{ }
+	// Default is pure white light
+	LightMaterial() : LightMaterial({ 1, 1, 1 })
+	{ }
+
+	void operator *=(LightMaterial rhs)
+	{
+		ambient *= rhs.ambient;
+		diffuse *= rhs.diffuse;
+		specular *= rhs.specular;
+	}
+};
+
 class Shader
 {
 public:

@@ -14,6 +14,7 @@ struct Mesh
 	const static Mesh NULL_MESH;
 	std::vector<float> vertices;
 	std::vector<unsigned int> indices;
+	std::vector<float> normals;
 	std::vector<std::vector<float>> attributes;
 
 	bool operator ==(Mesh rhs)

@@ -5,6 +5,7 @@
 /* STATIC */
 // Initialize Static Mesh Vertices
 const Mesh Mesh::CUBE{
+	// Vertices
 	{-0.5f, -0.5f, -0.5f,
 	 0.5f, -0.5f, -0.5f,
 	 0.5f,  0.5f, -0.5f,
@@ -45,7 +46,50 @@ const Mesh Mesh::CUBE{
 	 0.5f,  0.5f,  0.5f,
 	 0.5f,  0.5f,  0.5f,
 	-0.5f,  0.5f,  0.5f,
-	-0.5f,  0.5f, -0.5f}
+	-0.5f,  0.5f, -0.5f},
+	{}, // Indices
+	// Normals	
+	{0, 0, -1,
+	0, 0, -1,
+	0, 0, -1,
+	0, 0, -1,
+	0, 0, -1,
+	0, 0, -1,
+	
+	0, 0, 1,
+	0, 0, 1,
+	0, 0, 1,
+	0, 0, 1,
+	0, 0, 1,
+	0, 0, 1,
+	
+	-1, 0, 0,
+	-1, 0, 0,
+	-1, 0, 0,
+	-1, 0, 0,
+	-1, 0, 0,
+	-1, 0, 0,
+	
+	1, 0, 0,
+	1, 0, 0,
+	1, 0, 0,
+	1, 0, 0,
+	1, 0, 0,
+	1, 0, 0,
+	
+	0, -1, 0,
+	0, -1, 0,
+	0, -1, 0,
+	0, -1, 0,
+	0, -1, 0,
+	0, -1, 0,
+	
+	0, 1, 0,
+	0, 1, 0,
+	0, 1, 0,
+	0, 1, 0,
+	0, 1, 0,
+	0, 1, 0}
 };
 const Mesh Mesh::NULL_MESH{};
 
@@ -243,5 +287,8 @@ void MeshRenderer::transformShader()
 
 void MeshRenderer::updateLighting()
 {
-	shader.setFloat3("lightColor", LightObject::LightColor);
+	shader.setFloat3("light.position", LightObject::LightPos);
+	shader.setFloat3("light.ambient", LightObject::LightMat.ambient);
+	shader.setFloat3("light.diffuse", LightObject::LightMat.diffuse);
+	shader.setFloat3("light.specular", LightObject::LightMat.specular);
 }

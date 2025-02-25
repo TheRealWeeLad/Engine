@@ -1,16 +1,18 @@
 #include "LightObject.h"
 
 std::vector<LightObject*> LightObject::LightObjects{};
-glm::vec3 LightObject::LightColor{ 1,1,1 };
+LightMaterial LightObject::LightMat{ };
+glm::vec3 LightObject::LightPos{ 0, 0, 0 };
 
-LightObject::LightObject(glm::vec3 color) : GameObject()
+
+LightObject::LightObject(LightMaterial lightMat) : GameObject()
 {
-	lightColor = color;
+	mat = lightMat;
 	LightObjects.push_back(this);
 }
-LightObject::LightObject(glm::vec3 color, glm::vec3 position) : GameObject(position)
+LightObject::LightObject(LightMaterial lightMat, glm::vec3 position) : GameObject(position)
 {
-	lightColor = color;
+	mat = lightMat;
 	LightObjects.push_back(this);
 }
 LightObject::~LightObject()
@@ -20,10 +22,14 @@ LightObject::~LightObject()
 
 void LightObject::CalculateLighting()
 {
-	// Reset color every frame
-	LightColor = { 1, 1, 1 };
+	// Reset color and position every frame
+	LightMat = {};
+	LightPos = { 0, 0, 0 };
 	for (int i = 0; i < LightObjects.size(); i++)
 	{
-		LightColor *= LightObjects[i]->lightColor;
+		LightObject* l{ LightObjects[i] };
+		LightMat *= l->mat;
+		LightPos += LightObjects[i]->transform.position;
 	}
+	LightPos /= LightObjects.size();
 }
