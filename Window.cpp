@@ -14,6 +14,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+using namespace Engine;
+
 // Default camera
 Camera* cam{ Camera::MainCamera };
 

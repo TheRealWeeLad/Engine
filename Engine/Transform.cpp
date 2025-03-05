@@ -1,5 +1,7 @@
 #include "Transform.h"
 
+using namespace Engine;
+
 /* CONSTRUCTOR */
 Transform::Transform()
 {

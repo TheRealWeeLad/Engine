@@ -66,6 +66,8 @@ struct Texture
 	}
 };
 
+namespace Engine {
+
 class MeshRenderer : public Component
 {
 public:
@@ -109,3 +111,4 @@ private:
 	// Update shader lighting
 	void updateLighting();
 };
+}

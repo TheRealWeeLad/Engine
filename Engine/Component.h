@@ -1,5 +1,7 @@
 #pragma once
 
+namespace Engine {
+
 class GameObject;
 
 class Component
@@ -11,3 +13,4 @@ public:
 	virtual void update() {};
 	void linkObject(GameObject* obj);
 };
+}

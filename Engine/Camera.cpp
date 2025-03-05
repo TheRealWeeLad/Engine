@@ -1,5 +1,7 @@
 #include "Camera.h"
 
+using namespace Engine;
+
 Camera cam{};
 Camera* Camera::MainCamera{ &cam };
 

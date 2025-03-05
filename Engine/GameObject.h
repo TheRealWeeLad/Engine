@@ -4,6 +4,8 @@
 #include <glm/glm.hpp>
 #include <array>
 
+namespace Engine {
+
 // Forward declare includes to avoid circular dependencies
 class Component;
 
@@ -44,3 +46,4 @@ public:
 		components[SomeComponent::ID] = nullptr;
 	}
 };
+}

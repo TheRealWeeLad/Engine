@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObject.h"
 
+namespace Engine {
+
 class LightObject :
     public GameObject
 {
@@ -16,4 +18,4 @@ public:
 
     static void CalculateLighting();
 };
-
+}

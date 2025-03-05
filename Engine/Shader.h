@@ -62,6 +62,8 @@ struct LightMaterial
 	}
 };
 
+namespace Engine {
+
 class Shader
 {
 public:
@@ -76,6 +78,9 @@ public:
 
 	// Set paths after initializing
 	void setPaths(const char* vertexPath, const char* fragmentPath);
+	std::string readShaderFile(const char* path) const;
+	// Preprocesses shader code (#include statements)
+	std::string preprocess(std::stringstream& code) const;
 
 	// Utility uniform setters
 	void setBool(const std::string &name, bool value) const;
@@ -88,5 +93,5 @@ public:
 	void setMat4(const std::string& name, glm::mat4 value) const;
 	void setMaterial(Material mat) const;
 };
-
+}
 #endif

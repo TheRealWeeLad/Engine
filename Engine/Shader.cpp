@@ -1,5 +1,7 @@
 #include "Shader.h"
 
+using namespace Engine;
+
 const Material Material::Default{ {1, 1, 1}, {1, 1, 1}, 1.0F };
 
 Shader::Shader() { ID = -1; }
@@ -15,37 +17,12 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath, Material m) : S
 void Shader::setPaths(const char* vertexPath, const char* fragmentPath)
 {
 	/* READ SHADERS FROM FILE */
-	std::string vertexCode, fragmentCode;
-	std::ifstream vShaderFile, fShaderFile;
-	// Ensure ifstream objects can throw exceptions
-	vShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-	fShaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-	try
-	{
-		// Open files
-		vShaderFile.open(vertexPath);
-		fShaderFile.open(fragmentPath);
+	std::string vertexCode{ readShaderFile(vertexPath) };
+	std::string fragmentCode{ readShaderFile(fragmentPath) };
 
-		// Read file buffer contents into streams
-		std::stringstream vStream, fStream;
-		vStream << vShaderFile.rdbuf();
-		fStream << fShaderFile.rdbuf();
-
-		// Close file handlers
-		vShaderFile.close();
-		fShaderFile.close();
-
-		// Convert stream into string
-		vertexCode = vStream.str();
-		fragmentCode = fStream.str();
-	}
-	catch (std::ifstream::failure e)
-	{
-		std::cout << "ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ" << std::endl;
-	}
 	// Convert to C strings for OpenGL compatability
-	const char* vShaderCode = vertexCode.c_str();
-	const char* fShaderCode = fragmentCode.c_str();
+	const char* vShaderCode{ vertexCode.c_str() };
+	const char* fShaderCode{ fragmentCode.c_str() };
 
 	/* COMPILE AND LINK SHADERS */
 	// Compile vert and frag shaders
@@ -89,6 +66,63 @@ void Shader::setPaths(const char* vertexPath, const char* fragmentPath)
 	// Clean up shader objects
 	glDeleteShader(vert);
 	glDeleteShader(frag);
+}
+
+// Reads shader files into string array [vertexCode, fragmentCode]
+std::string Shader::readShaderFile(const char* path) const
+{
+	std::string code;
+	std::ifstream shaderFile;
+	// Ensure ifstream objects can throw exceptions
+	shaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+	try
+	{
+		// Open files
+		shaderFile.open(path);
+
+		// Read file buffer contents into streams
+		std::stringstream stream;
+		stream << shaderFile.rdbuf();
+
+		// Close file handlers
+		shaderFile.close();
+
+		// Preprocess code
+		code = preprocess(stream);
+
+		return code;
+	}
+	catch (std::ifstream::failure e)
+	{
+		std::cout << "ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ" << std::endl;
+	}
+}
+
+std::string Shader::preprocess(std::stringstream& code) const
+{
+	std::string codeStr{};
+
+	// Read through file
+	char line[512];
+	while (code.getline(line, 512))
+	{
+		// Check for #include declaration -> "{#include }file.glsl"
+		if (line[0] == '#' && strncmp(line + 1, "include ", 8) == 0)
+		{
+			// Include specified file -> "#include {file.glsl}"
+			char* filename = line + 9;
+
+			// Append included code (excluding #version statement)
+			std::string includedCode{ readShaderFile(filename) };
+			codeStr += includedCode.substr(includedCode.find('\n'));
+		}
+		else
+		{
+			codeStr += line;
+			codeStr += '\n';
+		}
+	}
+	return codeStr;
 }
 
 void Shader::use() const

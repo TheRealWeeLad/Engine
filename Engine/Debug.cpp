@@ -1,5 +1,7 @@
 #include "Debug.h"
 
+using namespace Engine;
+
 template<typename T>
 void Debug::printArray(std::vector<T> array)
 {

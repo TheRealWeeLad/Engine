@@ -6,6 +6,8 @@
 #include <glm/gtc/quaternion.hpp>
 #include "Identity.h"
 
+namespace Engine {
+
 class Camera
 {
 public:
@@ -39,4 +41,5 @@ private:
 
 	void calculateDirections();
 };
+}
 #endif

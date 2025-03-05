@@ -3,6 +3,8 @@
 #include <glm/gtc/quaternion.hpp>
 #include "Identity.h"
 
+namespace Engine {
+
 class Component;
 
 class Transform
@@ -16,3 +18,4 @@ public:
 	void update();
 	void translate(glm::vec3 translation);
 };
+}

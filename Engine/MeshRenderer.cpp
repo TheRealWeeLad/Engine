@@ -2,6 +2,8 @@
 #include "LightObject.h"
 #include "Transform.h"
 
+using namespace Engine;
+
 /* STATIC */
 // Initialize Static Mesh Vertices
 const Mesh Mesh::CUBE{

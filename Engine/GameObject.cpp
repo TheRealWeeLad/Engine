@@ -2,6 +2,8 @@
 #include "Component.h"
 #include <iostream>
 
+using namespace Engine;
+
 /* STATIC */
 std::vector<GameObject*> GameObject::GameObjects{};
 

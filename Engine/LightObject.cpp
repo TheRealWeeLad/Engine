@@ -1,5 +1,7 @@
 #include "LightObject.h"
 
+using namespace Engine;
+
 std::vector<LightObject*> LightObject::LightObjects{};
 LightMaterial LightObject::LightMat{ };
 glm::vec3 LightObject::LightPos{ 0, 0, 0 };

@@ -3,6 +3,8 @@
 #include "vector"
 #include "string"
 
+namespace Engine {
+
 class Debug
 {
 public:
@@ -11,3 +13,4 @@ public:
 	template<typename T>
 	static void printArray(T array[], int size);
 };
+}

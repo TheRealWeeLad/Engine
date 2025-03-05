@@ -1,9 +1,10 @@
 #version 460 core
+#include Materials.glsl
 in vec3 Normal;
 in vec3 FragPos;
 out vec4 FragColor;
 
-struct Material
+/*struct Material
 {
 	vec3 color;
 	vec3 ambient;
@@ -18,7 +19,7 @@ struct Light
 	vec3 ambient;
 	vec3 diffuse;
 	vec3 specular;
-};
+};*/
 
 uniform Material mat;
 uniform Light light;
