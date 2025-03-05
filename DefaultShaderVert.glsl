@@ -13,5 +13,5 @@ void main()
 	gl_Position = project * view * model * vec4(pos, 1.0);
 	// Send world space coords to frag shader
 	FragPos = vec3(model * vec4(pos, 1.0));
-	Normal = normal;
+	Normal = mat3(transpose(inverse(model))) * normal;
 }

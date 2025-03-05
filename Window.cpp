@@ -121,7 +121,7 @@ int main()
 	glm::vec3 lightColor{ 1, 1, 1 };
 	Material lightMat{ lightColor, lightColor, 1.0F };
 	lightRend.setMaterial(lightMat);
-	LightObject lightSource{ lightColor, {1, 1, 3} };
+	LightObject lightSource{ {lightColor}, {1, 1, 3}};
 	lightSource.addComponent(&lightRend);
 
 	// Create objects

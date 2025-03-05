@@ -48,7 +48,7 @@
     <ClInclude Include="Engine\Transform.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="LightObject.h">
+    <ClInclude Include="Engine\LightObject.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
   </ItemGroup>

@@ -137,11 +137,11 @@
     <ClInclude Include="Engine\Debug.h" />
     <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\Identity.h" />
+    <ClInclude Include="Engine\LightObject.h" />
     <ClInclude Include="Engine\MeshRenderer.h" />
     <ClInclude Include="Engine\Shader.h" />
     <ClInclude Include="Engine\stb_image.h" />
     <ClInclude Include="Engine\Transform.h" />
-    <ClInclude Include="LightObject.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\GLFW include\glad.c" />

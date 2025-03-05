@@ -208,6 +208,9 @@ void MeshRenderer::setupMesh()
 {
 	glBindVertexArray(VAO);
 
+	// Add normals to attributes
+	mesh.attributes.insert(mesh.attributes.begin(), mesh.normals);
+
 	// Interleave attribute data into vertex array
 	interleave();
 
@@ -231,7 +234,8 @@ void MeshRenderer::setupMesh()
 	// Vertex attribute
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (void*)0);
 	glEnableVertexAttribArray(0);
-	// Other attributes
+
+	// Attributes
 	for (int i = 0; i < mesh.attributes.size(); i++)
 	{
 		int size = mesh.attributes[i].size() / numVertices; // Use copy-initialization to avoid narrowing conversion error
